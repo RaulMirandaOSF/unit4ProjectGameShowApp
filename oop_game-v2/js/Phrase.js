@@ -5,7 +5,7 @@
 class Phrase {
     constructor(phrase) {
         this.phrase = phrase.toLowerCase();
-        this.letterSelected = '';
+        this.letterSelected = 'o';
     }
 
     addPhraseToDisplay() {
@@ -22,6 +22,9 @@ class Phrase {
     }
 
     showMatchedLetter() {
-
+        if (this.checkLetter()) {
+            $(`#phrase ul .${this.letterSelected}`).removeClass("hide");
+            $(`#phrase ul .${this.letterSelected}`).addClass("show");
+        }
     }
 }
