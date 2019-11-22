@@ -17,6 +17,15 @@ $(".keyrow button").click(function (e) {
     game.handleInteraction(e.target);
 });
 
+$(this).keypress(function (e) {
+    const charKey = String.fromCharCode(e.keyCode);
+    const element = $(`.keyrow .key:contains(${charKey})`);
+    
+    if (element.length > 0) {
+        game.handleInteraction(element[0]);
+    } 
+});
+
 function resetKeyrow() {
     $(".keyrow button").removeClass("chosen");
     $(".keyrow button").removeClass("wrong");
