@@ -20,10 +20,47 @@ class Game {
         $("#overlay").hide();
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
+        console.log(this.activePhrase.phrase);
     }
 
     getRandomPhrase() {
         var index = Math.floor(Math.random() * this.phrases.length);
         return this.phrases[index];
+    }
+
+    handleInteraction(targetLetter) {
+        let letterClicked = targetLetter.innerText;
+        let letterMatched = this.activePhrase.checkLetter(letterClicked);
+        console.log(letterClicked, letterMatched);
+
+        if (letterMatched) {
+            targetLetter.className = "chosen"
+            this.activePhrase.showMatchedLetter();
+
+            if (this.checkForWin()) {
+                this.gameOver();
+            }
+        } else {
+            this.removeLife();
+            targetLetter.className = "wrong"
+        }
+    }
+
+    removeLife() {
+        $("#scoreboard ol li img").eq(this.missed).attr("src", "images/lostHeart.png");
+        this.missed++;
+        
+        if (this.missed > 4) {
+            this.gameOver();
+        }
+    }
+
+    checkForWin() {
+        console.log('check for win');
+        return false;
+    }
+
+    gameOver() {
+        console.log('game over');
     }
 }

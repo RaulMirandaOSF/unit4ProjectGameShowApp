@@ -4,3 +4,8 @@
 
 let game = new Game();
 game.startGame();
+
+$(".keyrow button").click(function (e) {
+    game.handleInteraction(e.target);
+});
+

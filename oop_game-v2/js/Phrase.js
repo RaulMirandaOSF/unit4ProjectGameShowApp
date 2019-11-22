@@ -5,7 +5,7 @@
 class Phrase {
     constructor(phrase) {
         this.phrase = phrase.toLowerCase();
-        this.letterSelected = 'o';
+        this.letterSelected = '';
     }
 
     addPhraseToDisplay() {
@@ -17,14 +17,13 @@ class Phrase {
         $('#phrase ul').html(phraseHtml);
     }
 
-    checkLetter() {
-        return this.phrase.includes(this.letterSelected);
+    checkLetter(letterSelected) {
+        this.letterSelected = letterSelected;
+        return this.phrase.includes(letterSelected);
     }
 
     showMatchedLetter() {
-        if (this.checkLetter()) {
-            $(`#phrase ul .${this.letterSelected}`).removeClass("hide");
-            $(`#phrase ul .${this.letterSelected}`).addClass("show");
-        }
+        $(`#phrase ul .${this.letterSelected}`).removeClass("hide");
+        $(`#phrase ul .${this.letterSelected}`).addClass("show");
     }
 }
