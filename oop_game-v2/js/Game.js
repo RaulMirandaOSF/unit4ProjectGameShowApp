@@ -31,14 +31,13 @@ class Game {
     handleInteraction(targetLetter) {
         let letterClicked = targetLetter.innerText;
         let letterMatched = this.activePhrase.checkLetter(letterClicked);
-        console.log(letterClicked, letterMatched);
 
         if (letterMatched) {
             targetLetter.className = "chosen"
             this.activePhrase.showMatchedLetter();
 
             if (this.checkForWin()) {
-                this.gameOver();
+                this.gameOver("win");
             }
         } else {
             this.removeLife();
@@ -51,16 +50,28 @@ class Game {
         this.missed++;
         
         if (this.missed > 4) {
-            this.gameOver();
+            this.gameOver("lose");
         }
     }
 
     checkForWin() {
-        console.log('check for win');
-        return false;
+        let win = true;
+
+        $("#phrase ul li").each(function() {
+            let classContainShow = this.className.includes("show");
+            if (!classContainShow && this.className !== "space") {
+                return win = false;
+            }
+        });
+
+        return win;
     }
 
-    gameOver() {
-        console.log('game over');
+    gameOver(gameOverType) {
+        let gameOverMessage = gameOverType === "win" ? "Winner! :)" : "You lost! :(";
+        $("#game-over-message").text(gameOverMessage);
+        $("#overlay").show();
+        $("#overlay").addClass(gameOverType);
+        $("#overlay").removeClass("start");
     }
 }
